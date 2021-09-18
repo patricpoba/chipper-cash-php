@@ -1,8 +1,8 @@
 <?php
 
-namespace PatricPoba\Chipper\Http;
+namespace PatricPoba\ChipperCash\Http;
 
-use PatricPoba\Chipper\Utilities\AttributesMassAssignable;
+use PatricPoba\ChipperCash\Utilities\AttributesMassAssignable;
   
 
 class ApiResponse

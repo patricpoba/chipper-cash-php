@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PatricPoba\\Chipper\\": "src"
+            "PatricPoba\\ChipperCash\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PatricPoba\\Chipper\\Tests\\": "tests"
+            "PatricPoba\\ChipperCash\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PatricPoba\\Chipper\\ChipperNetworkServiceProvider"
+                "PatricPoba\\ChipperCash\\ChipperNetworkServiceProvider"
             ],
             "aliases": {
-                "ChipperNetwork": "PatricPoba\\Chipper\\ChipperNetworkFacade"
+                "ChipperNetwork": "PatricPoba\\ChipperCash\\ChipperNetworkFacade"
             }
         }
     }

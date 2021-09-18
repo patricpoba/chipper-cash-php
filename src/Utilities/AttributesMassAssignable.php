@@ -1,7 +1,7 @@
 <?php
  
 
-namespace PatricPoba\Chipper\Utilities;
+namespace PatricPoba\ChipperCash\Utilities;
 
 /**
  * MassAssignable Trait

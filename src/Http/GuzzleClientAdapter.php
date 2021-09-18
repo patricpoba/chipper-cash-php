@@ -1,6 +1,6 @@
 <?php
  
-namespace PatricPoba\Chipper\Http;
+namespace PatricPoba\ChipperCash\Http;
 
 use Exception; 
 use GuzzleHttp\ClientInterface; 
@@ -32,7 +32,7 @@ class GuzzleClientAdapter implements HttpClientInterface
      * @param string $url
      * @param array $params
      * @param array $headers
-     * @return \PatricPoba\Chipper\Http\ApiResponse
+     * @return \PatricPoba\ChipperCash\Http\ApiResponse
      */
     public function request($method, $url, $params = [], $headers = [])
     {

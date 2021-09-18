@@ -1,8 +1,8 @@
 <?php
 
-namespace PatricPoba\Chipper;
+namespace PatricPoba\ChipperCash;
 
-use PatricPoba\Chipper\Utilities\AttributesMassAssignable;
+use PatricPoba\ChipperCash\Utilities\AttributesMassAssignable;
 
 class Config
 {

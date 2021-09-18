@@ -1,6 +1,6 @@
 <?php
 
-namespace PatricPoba\Chipper;
+namespace PatricPoba\ChipperCash;
 
 use Illuminate\Support\Facades\Facade;
 

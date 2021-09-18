@@ -1,8 +1,8 @@
 <?php
 
-namespace PatricPoba\Chipper;
+namespace PatricPoba\ChipperCash;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider; 
 
 class ChipperNetworkServiceProvider extends ServiceProvider
 {
@@ -54,7 +54,7 @@ class ChipperNetworkServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('chipper-network', function () {
-            return new ChipperNetwork;
+            return new ChipperCash;
         });
     }
 }

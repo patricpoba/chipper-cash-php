@@ -1,11 +1,11 @@
 <?php
 
-namespace PatricPoba\Chipper;
+namespace PatricPoba\ChipperCash;
 
 use GuzzleHttp\Client; 
-use PatricPoba\Chipper\Http\GuzzleClientAdapter;
+use PatricPoba\ChipperCash\Http\GuzzleClientAdapter;
 
-class Chipper
+class ChipperCash
 {
     
     /**

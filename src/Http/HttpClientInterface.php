@@ -1,6 +1,6 @@
 <?php
 
-namespace PatricPoba\Chipper\Http;
+namespace PatricPoba\ChipperCash\Http;
  
 
 interface HttpClientInterface
@@ -13,7 +13,7 @@ interface HttpClientInterface
      * 
      * @throws \Exception
      * 
-     * @return PatricPoba\Chipper\Http\ApiResponse\ApiResponse 
+     * @return PatricPoba\ChipperCash\Http\ApiResponse\ApiResponse 
      * An array whose first element is raw request body, second
      *    element is HTTP status code and third array of HTTP headers.
      */
