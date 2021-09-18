@@ -1,6 +1,6 @@
 <?php
 
-namespace PatricPoba\ChipperNetwork;
+namespace PatricPoba\Chipper;
 
 use Illuminate\Support\ServiceProvider;
 

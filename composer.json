@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.0|^8.0",
+        "guzzlehttp/guzzle": "^6.5",
         "illuminate/support": "^5.0|^6.0|^8.0"
     },
     "require-dev": {
@@ -25,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PatricPoba\\ChipperNetwork\\": "src"
+            "PatricPoba\\Chipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PatricPoba\\ChipperNetwork\\Tests\\": "tests"
+            "PatricPoba\\Chipper\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PatricPoba\\ChipperNetwork\\ChipperNetworkServiceProvider"
+                "PatricPoba\\Chipper\\ChipperNetworkServiceProvider"
             ],
             "aliases": {
-                "ChipperNetwork": "PatricPoba\\ChipperNetwork\\ChipperNetworkFacade"
+                "ChipperNetwork": "PatricPoba\\Chipper\\ChipperNetworkFacade"
             }
         }
     }
