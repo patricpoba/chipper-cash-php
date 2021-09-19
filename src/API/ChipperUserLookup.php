@@ -8,12 +8,12 @@ use PatricPoba\ChipperCash\ChipperCash;
 class ChipperUserLookup extends ChipperCash
 { 
     /**
-     * Relative url (segement after base url) for Network Test
-     * For - https://api.chipper.network/v1/echo, 
+     * Relative url (segement after base url) for Network Test 
      */
     const API_URL = 'users/lookup';
 
-    public function execute($type, $typeValue)
+
+    public function run($type, $typeValue)
     { 
         return $this->client->post( static::API_URL, [
             'type'  => $type,
@@ -21,19 +21,28 @@ class ChipperUserLookup extends ChipperCash
         ]);  
     }
 
-    public function byEmail($email)
+
+    public function byEmail(string $email)
     {
-        return $this->execute('email', $email);
+        return $this->run('email', $email);
     }
 
-    public function byTag($tag)
+
+    public function byTag(string $tag)
     {
-        return $this->execute('tag', $tag);
+        return $this->run('tag', $tag);
     }
 
-    public function byPhone($phone)
+
+    public function byPhone(string $phone)
     {
-        return $this->execute('phone', $phone);
+        return $this->run('phone', $phone);
+    }
+
+
+    public function byId(int $id)
+    {
+        return $this->run('id', $id);
     }
 
 }

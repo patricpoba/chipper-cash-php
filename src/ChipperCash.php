@@ -14,6 +14,8 @@ class ChipperCash
      */ 
     const VERSION = '1.0';
 
+    const SUPPORTED_CURRENCIES = ['GHS', 'NGN', 'UGX', 'ZAR', 'KSH', 'RWF', 'TZS'];
+
     /**
      * Chipper configs
      *
