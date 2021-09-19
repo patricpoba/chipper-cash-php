@@ -3,12 +3,13 @@
 namespace PatricPoba\ChipperCash\API;
 
 use Exception;
+use ChipperRequestParametersTrait;
 use PatricPoba\ChipperCash\ChipperCash;
 use PatricPoba\ChipperCash\Utilities\AttributesMassAssignable;
 
 class ChipperPayout extends ChipperCash
 { 
-    use AttributesMassAssignable;
+    use ChipperRequestParametersTrait, AttributesMassAssignable;
 
     /**
      * Relative url (segement after base url) for Network Test 
@@ -48,54 +49,6 @@ class ChipperPayout extends ChipperCash
      ];
 
 
-    /**
-     * Set chipper cash recipient
-     *
-     * @param string $identifierType
-     * @param string|int $identifier
-     * @return static
-     */
-    public function touser(string $identifierType, $identifier )
-    {
-        $identifierType = strtolower($identifier);
-
-        if (! in_array($identifierType, ['tag', 'id'])) {
-            throw new \Exception("recipientIdentifier must be tag or id, {$identifier} given");
-        }
-
-        $this->recipientIdentifierType = $identifierType;
-        $this->recipientIdentifier = $identifier;
-
-        return $this;
-    }
-
-    /**
-     * Set chipper cash recipient
-     *
-     * @param string $identifierType
-     * @param string|int $identifier
-     * @return static
-     */
-    protected function amount(string $currency, $amount )
-    {
-        $currency = ucwords($currency);
-
-        if (! in_array($currency, static::SUPPORTED_CURRENCIES)) {
-            $exceptionMessage = "Unsupported currency given - {$currency}. Only these are supported " .
-            implode(', ', static::SUPPORTED_CURRENCIES) ;
-            throw new \Exception($exceptionMessage);
-        }
-
-        if (!is_numeric($amount)) {
-            throw new \Exception("Amount must be a numberic value, " . gettype($amount) . " given");
-        }
-
-        $this->currency = $currency;
-        $this->amount = $amount;
-
-        return $this;
-    }
-
     public function originAmount(string $currency, $amount )
     {
        $this->payoutOption = 'originAmount';
@@ -109,35 +62,10 @@ class ChipperPayout extends ChipperCash
        
        return $this->amount($currency, $amount);
     }
-
-    public function reference($reference)
-    {
-        $this->reference = $reference;
-    }
-
-    public function note($note)
-    {
-        $this->note = $note;
-    }
-
-    protected function validateRequestParams()
-    {
-        $missingParams = [];
-        foreach ($this->requiredParams as $key => $value) {
-            if ($this->{$key} == null) {
-                $missingParams[] = $key;
-            }
-        }
-
-        if ( !empty($missingParams) ) {
-            throw new Exception("Error Processing Request");
-            exit;
-        }
-    }
     
     /**
      * Execute API request to make payment
-     * @param array $payoutDetails
+     * @param array $payoutDetails overrides previously set attributes
      * 
      * @throws Exception
      * @return PatricPoba\ChipperCash\Http\ApiResponse
