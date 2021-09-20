@@ -4,7 +4,7 @@ namespace PatricPoba\ChipperCash;
 
 use PatricPoba\ChipperCash\Utilities\AttributesMassAssignable;
 
-class Config
+class ChipperConfig
 {
     use AttributesMassAssignable;
 
@@ -31,7 +31,7 @@ class Config
      *
      * @param array $configArray
      */
-    public function __construct($configArray)
+    public function __construct($configArray = [])
     {
         $this->massAssignAttributes($configArray);
     }

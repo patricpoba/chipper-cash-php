@@ -48,7 +48,7 @@ trait ChipperRequestParametersTrait
     /**
      * Set chipper cash recipient
      *
-     * @param string $identifierType
+     * @param string $currency options:ChipperCash::SUPPORTED_CURRENCIES
      * @param string|int $identifier
      * @return static
      */
@@ -71,7 +71,13 @@ trait ChipperRequestParametersTrait
 
         return $this;
     }
- 
+    
+    /**
+     * Unique id for this transaction. eg order ID
+     *
+     * @param string $reference
+     * @return static
+     */
     public function reference($reference)
     {
         $this->reference = $reference;
@@ -79,6 +85,12 @@ trait ChipperRequestParametersTrait
         return $this;
     }
 
+    /**
+     * Short description of transaction
+     *
+     * @param [type] $note
+     * @return void
+     */
     public function note($note)
     {
         $this->note = $note;

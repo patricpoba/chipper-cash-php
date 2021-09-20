@@ -19,28 +19,35 @@ class ChipperCash
     /**
      * Chipper configs
      *
-     * @var Config
+     * @var ChipperConfig
      */
     protected $config;
 
+    protected $client;
+
     
-    public function __construct(Config $config)
+    public function __construct(ChipperConfig $config = null)
     {  
-        $this->client = new GuzzleClientAdapter( new Client([
-            'base_uri'      => $config->getNetworkApiBaseUrl(),
-            'headers'       => [ 
-                                'x-chipper-user-id'=> $config->getNetworkUserId(), 
-                                'x-chipper-api-key'=> $config->getNetworkApiKey() 
-                                ],
-            'http_errors'   => false,
-            'timeout'       => 5
-        ]));
+        if ($config) { 
+            $this->client = new GuzzleClientAdapter( new Client([
+                'base_uri'      => $config->getNetworkApiBaseUrl(),
+                'headers'       => [ 
+                                    'x-chipper-user-id'=> $config->getNetworkUserId(), 
+                                    'x-chipper-api-key'=> $config->getNetworkApiKey() 
+                                    ],
+                'http_errors'   => false,
+                'timeout'       => 5
+            ]));
+        }else{
+            // get config automatically
+            
+        }
 
         $this->setConfig($config);
     }
     
     
-    public function setConfig(Config $config)
+    public function setConfig(ChipperConfig $config)
     {
         $this->config = $config; 
 

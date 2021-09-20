@@ -31,7 +31,8 @@ class ChipperPayout extends ChipperCash
     /** 
      * There are two ways the payment amount can be expressed. 
      * - destinationAmount: specifies exactly how much the  recipient should receive 
-     * - originAmount: recipeint receives the equivalent of the origin amount in their local (primary) currency. 
+     * - originAmount: recipeint receives the equivalent of the origin amount in their 
+     *      local (primary) currency. 
      * @docs https://www.notion.so/Making-Payouts-af5b4c2a4fcf45d4b19024617b2a0d04
      * 
      * @var string originAmount|destinationAmount
@@ -48,7 +49,13 @@ class ChipperPayout extends ChipperCash
         'payoutOption',
      ];
 
-
+    /** 
+     * Recipeint receives the equivalent of the origin amount in their local (primary) currency. 
+     * 
+     * @param string $currency in options:ChipperCash::SUPPORTED_CURRENCIES
+     * @param numeric $amount
+     * @return PatricPoba\ChipperCash\Http\ApiResponse
+     */
     public function originAmount(string $currency, $amount )
     {
        $this->payoutOption = 'originAmount';
@@ -56,6 +63,13 @@ class ChipperPayout extends ChipperCash
        return $this->amount($currency, $amount);
     }
 
+    /**
+     * Specifies exactly how much the  recipient should receive 
+     *
+     * @param string $currency in options:ChipperCash::SUPPORTED_CURRENCIES
+     * @param numeric $amount
+     * @return PatricPoba\ChipperCash\Http\ApiResponse
+     */
     public function destinationAmount(string $currency, $amount )
     {
        $this->payoutOption = 'destinationAmount';
