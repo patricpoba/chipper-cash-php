@@ -45,7 +45,8 @@ $config = new ChipperConfig([
 
 # API Usage Guide  
 
-## Network Test
+## API: Network Test
+This endpoint is used to verify that your API credentials are setup correctly and that the Network API servers are functional.
 Official documentation here : [Network Test API](https://www.notion.so/Making-your-first-API-request-d0c11802aae445a4bdf3453da48a4f6a)
 ```php
 # Request Example
@@ -55,7 +56,7 @@ $networkTest = new ChipperNetworkTest();
 $resopnse = $networkTest->run();
 ```
 
-Passing a config object
+To pass a config object:
 ```php
 use PatricPoba\ChipperCash\ChipperConfig;
 use PatricPoba\ChipperCash\API\ChipperNetworkTest;
@@ -73,7 +74,7 @@ $response = $networkTest->run();
 
 ```
 
-## Get Chipper Account Balance
+## API: Get Account Balance
 This lets you retrieve your chipper account information including account balance
 Official documentation here : [Get your Account Balance API](https://www.notion.so/Get-your-Account-Balance-88571840f2b94b9490259a48619b7a10)
 ```php 
@@ -82,11 +83,15 @@ use PatricPoba\ChipperCash\API\ChipperAccountBalance;
 $balanceRequest = new ChipperAccountBalance();
 $response = $balanceRequest->run();
 
-# Response Sample
-
+# $response->toJson()  
+{
+    "message": "Network API is up!",
+    "status": "SUCCESS"
+}
 ```
 
-## Lookup Chipper User Information
+## API: Lookup Chipper User Information
+This API lets you perform quick lookups that return public account information for a given Chipper User
 Official documentation here : [Looking up User Information API](https://www.notion.so/Looking-up-User-Information-146f7d5f26aa4234abf402020411ffa6)
 ```php 
 use PatricPoba\ChipperCash\API\ChipperUserLookup;
@@ -98,7 +103,7 @@ $response = $request->run();
 
 ```
 
-##  Making Payouts
+##  API: Making Payouts
 Official documentation here : [Making Payouts API](https://www.notion.so/Making-Payouts-af5b4c2a4fcf45d4b19024617b2a0d04)
 ```php
 use PatricPoba\ChipperCash\API\ChipperPayout;
@@ -117,15 +122,77 @@ $response = $payout->recipient('tag', 'johndoe')
 
 ```
 
-## Collecting Payments
+## API: Collecting Payments
+Merchants can collect payments from Chipper users either via Standard or Automatic charges. 
+
+A standard charge requires a user's approval each time one is initiated by a merchant. 
+
+An automatic charge is processed automatically without requiring user approval to be given for each charge the merchant initiates. Automatic charge requires `authorizationID` once after which multiple automatic charges can be made to user's account.
+
 Official documentation here : [Collecting Payments API](https://www.notion.so/Collecting-Payments-ff2e1851535141fe8c5cb44c7acfe1f7)
+
+
+### Standard Charge
 ```php
 # Request Example
+use PatricPoba\ChipperCash\API\ChipperPaymentCollection;
 
+$collection = new ChipperPaymentCollection(); 
+$response = $collection->recipient('tag', 'johndoe') 
+            ->amount('NGN', '15000') 
+            ->reference('1212121') // must be unique for each request
+            ->note('Order 1212121') // short description
+            ->collectByStandardCharge(); // must be called last
+
+// Another approach to request collection 
+$collectionParams = [
+    'recipientIdentifierType'=> 'tag',
+    'recipientIdentifier'=> 'johndoe',
+    'reference'=> '1212121',
+    'currency'=> 'NGN',
+    'amount'=> '15000',
+    'note'=> 'Order 1212121'
+];
+
+$response = $collection->collectByStandardCharge($collectionParams);
+# Response Sample
+```
+### Automatic Charge
+Step 1: Automatic Charge: authorization.id will be in response
+```php
+# Request Example
+use PatricPoba\ChipperCash\API\ChipperPaymentCollection;
+
+$collection = new ChipperPaymentCollection(); 
+$response = $collection->recipient('tag', 'johndoe') 
+                ->getAutomaticChargeAuthorisation(); 
+
+// Another approach to request authorisationID 
+$response = $collection->getAutomaticChargeAuthorisation([
+    'recipientIdentifierType'=> 'tag',
+    'recipientIdentifier'=> 'johndoe'
+]);
+
+# Response Sample
+```
+
+Step 2: After retriveing authorization.id, autotmatic charge can now be used to collect payments from users.
+```php
+# Request Example
+use PatricPoba\ChipperCash\API\ChipperPaymentCollection;
+
+$authorisactionID = '6g8g8h5h5h65j9j2ksd95gs6g8g8h5h5h65j9j2ksd95gs';
+$collection = new ChipperPaymentCollection(); 
+$response = $collection->amount('UGX', '15000') 
+                ->reference('1212121') // must be unique for each request
+                ->note('Order 1212121') // short description
+                ->collectByAutomaticCharge($authorisactionID); 
 
 # Response Sample
 
 ```
+
+
 
 # Api Responses
 
@@ -169,8 +236,7 @@ $response->isSuccess()
 
 
 # Status and Error Types
-
-Official documentation is [avaiable here](https://www.notion.so/Status-and-Error-Types-4ed54d7e4ba047529f55ffe1ad7b93db)
+While interacting with the Chipper Network API, you may expect the following status types for each transaction. The table below defines these in the Official documentation [avaiable here](https://www.notion.so/Status-and-Error-Types-4ed54d7e4ba047529f55ffe1ad7b93db)
 
 
 
@@ -180,7 +246,6 @@ Official documentation is [avaiable here](https://www.notion.so/Status-and-Error
 ./vendor/bin/phpunit
 ```
 
- 
 ## Contributing
 
 Do you want add a feature or improve this package? Or have you found a bug would like to fix? If yes, I would be glad to receive your pull request.
@@ -194,8 +259,5 @@ If you discover any security related issues, please email poba.dev@outlook.com i
 - [Patric Poba](https://github.com/patricpoba)
 - [All Contributors](../../contributors)
 - [PHP Package Boilerplate](https://laravelpackageboilerplate.com).
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+ 
  
