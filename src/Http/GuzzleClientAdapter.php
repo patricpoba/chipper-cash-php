@@ -3,6 +3,7 @@
 namespace PatricPoba\ChipperCash\Http;
 
 use Exception; 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface; 
 
 class GuzzleClientAdapter implements HttpClientInterface
@@ -20,9 +21,19 @@ class GuzzleClientAdapter implements HttpClientInterface
     public $baseUrl;
 
 
-    public function __construct( ClientInterface $client)
+    public function __construct0( ClientInterface $client)
     {  
         $this->client = $client ;
+    }
+
+    public function __construct( array $options)
+    {   
+        $this->client = new Client([
+                'base_uri'      => $options['base_uri'],
+                'headers'       => $options['headers'],
+                'http_errors'   => false,
+                'timeout'       => 5
+            ]);
     }
  
     /**

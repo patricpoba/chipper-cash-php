@@ -9,9 +9,9 @@ class ApiResponse
 {
     use AttributesMassAssignable;
     
-    protected $headers;
-    protected $content;
-    protected $statusCode;
+    public $headers;
+    public $content;
+    public $statusCode;
 
     /**
      * Construct object

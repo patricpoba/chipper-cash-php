@@ -12,6 +12,11 @@ class ChipperNetworkTest extends ChipperCash
      */
     const API_URL = 'echo';
 
+    /**
+     * Undocumented function
+     * 
+     * @return PatricPoba\ChipperCash\Http\ApiResponse
+     */
     public function run()
     {
         return $this->client->get( static::API_URL); 

@@ -51,7 +51,7 @@ class ChipperConfig
 
     public function getNetworkApiKey()
     {
-        return $this->networkUserId;
+        return $this->networkApiKey;
     }
     
 }

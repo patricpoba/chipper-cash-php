@@ -28,30 +28,45 @@ class ChipperCash
     
     public function __construct(ChipperConfig $config = null)
     {  
-        if ($config) { 
-            $this->client = new GuzzleClientAdapter( new Client([
-                'base_uri'      => $config->getNetworkApiBaseUrl(),
-                'headers'       => [ 
-                                    'x-chipper-user-id'=> $config->getNetworkUserId(), 
-                                    'x-chipper-api-key'=> $config->getNetworkApiKey() 
-                                    ],
-                'http_errors'   => false,
-                'timeout'       => 5
-            ]));
-        }else{
-            // get config automatically
-            
-        }
-
-        $this->setConfig($config);
+        $this->setConfig($config); 
     }
     
-    
-    public function setConfig(ChipperConfig $config)
+    /**
+     * Set config or override existing config
+     *
+     * @param ChipperConfig $config
+     * @return static
+     */
+    public function setConfig(ChipperConfig $config=null)
     {
         $this->config = $config; 
 
+         if ($config) {  
+            $baseUri = $this->config->getNetworkApiBaseUrl();
+            $networkUserId = $this->config->getNetworkUserId();
+            $networkApiKey = $this->config->getNetworkApiKey() ; 
+        }else{ 
+            // get config automatically from environment (laravel)
+            
+        }
+         $this->client = new GuzzleClientAdapter([
+                'base_uri' => $baseUri,
+                'headers'  => [ 
+                    'x-chipper-user-id'=> $networkUserId, 
+                    'x-chipper-api-key'=> $networkApiKey 
+                ]
+            ]);
+
         return $this;
+    }
+
+    /** 
+     * Get http client
+     * @return GuzzleClientAdapter
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
 }

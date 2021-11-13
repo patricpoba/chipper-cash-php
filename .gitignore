@@ -8,4 +8,5 @@ composer.lock
 .DS_Store
 database.sqlite
 test-package
+testing-ground
 .env
