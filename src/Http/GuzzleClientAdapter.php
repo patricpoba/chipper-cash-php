@@ -11,7 +11,7 @@ class GuzzleClientAdapter implements HttpClientInterface
     /**
      * @var ClientInterface
      */
-    public $client;
+    protected $client;
 
     /**
      * Base url of api collection
@@ -19,6 +19,10 @@ class GuzzleClientAdapter implements HttpClientInterface
      * @var string
      */
     public $baseUrl;
+ 
+    public $headers;
+
+    public $params;
 
 
     public function __construct0( ClientInterface $client)
@@ -47,6 +51,8 @@ class GuzzleClientAdapter implements HttpClientInterface
      */
     public function request($method, $url, $params = [], $headers = [])
     {
+        // $this->headers = $headers;
+        // $this->params = $params;
         try {
             // $response = $this->client->send(
             //     new \GuzzleHttp\Psr7\Request\Request($method, $url, $headers), ['json' => $params]

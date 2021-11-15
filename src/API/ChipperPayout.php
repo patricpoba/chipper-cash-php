@@ -2,8 +2,7 @@
 
 namespace PatricPoba\ChipperCash\API;
 
-use Exception;
-use ChipperRequestParametersTrait;
+use Exception; 
 use PatricPoba\ChipperCash\ChipperCash;
 use PatricPoba\ChipperCash\Utilities\AttributesMassAssignable;
 
@@ -14,7 +13,8 @@ class ChipperPayout extends ChipperCash
     /**
      * Relative url (segement after base url) for Network Test 
      */
-    const API_URL = 'payouts';
+    const MAKE_PAYOUT_API_URL = 'payouts';
+    // const GET_PAYOUT_API_URL = 'payouts';
 
     protected $recipientIdentifierType;
 
@@ -39,7 +39,7 @@ class ChipperPayout extends ChipperCash
      */
     protected $payoutOption; 
 
-    public $requireParams = [ 
+    public $requiredParams = [ 
         'recipientIdentifierType',
         'recipientIdentifier',
         'reference',
@@ -91,8 +91,10 @@ class ChipperPayout extends ChipperCash
         $this->validateRequestParams();
 
         $requestBody = [
-            "recipientIdentifierType" => $this->recipientIdentifierType,
-            "recipientIdentifier" => $this->recipientIdentifier,
+            "user" => [
+                "type" => $this->recipientIdentifierType,
+                $this->recipientIdentifierType => $this->recipientIdentifier
+            ], 
             "reference" => $this->reference,
             $this->payoutOption => [
                 "amount"  => $this->amount,
@@ -101,7 +103,31 @@ class ChipperPayout extends ChipperCash
             "note" => $this->note
         ];
 
-        return $this->client->post( static::API_URL, $requestBody); 
+        return $this->client->post( static::MAKE_PAYOUT_API_URL, $requestBody); 
     }
 
+    public function getPayout($identifierType, string $identifier)
+    {
+        if (!in_array($identifierType, ['id', 'reference'])) {
+            throw new \Exception("Payout can only be retrieved by id or reference. *{$identifierType}* given.");
+        }
+
+        if ($identifierType == 'id') { 
+            $url = 'payouts/' . $identifier;
+        }elseif ($identifierType == 'reference') {
+            $url = 'payouts/by-reference/' . $identifier;
+        }
+
+        return $this->client->get($url); 
+    }
+
+    public function getById($id)
+    {
+        return $this->getPayout('id', $id);
+    }
+
+    public function getByReference($reference)
+    {
+        return $this->getPayout('reference', $reference);
+    }
 }

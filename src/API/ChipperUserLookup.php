@@ -16,8 +16,10 @@ class ChipperUserLookup extends ChipperCash
     public function run($type, $typeValue)
     { 
         return $this->client->post( static::API_URL, [
-            'type'  => $type,
-            $type   => $typeValue
+            'user' => [
+                'type'  => $type,
+                $type   => $typeValue
+            ]
         ]);  
     }
 
@@ -40,7 +42,7 @@ class ChipperUserLookup extends ChipperCash
     }
 
 
-    public function byId(int $id)
+    public function byId($id)
     {
         return $this->run('id', $id);
     }

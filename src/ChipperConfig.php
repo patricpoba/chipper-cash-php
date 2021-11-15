@@ -39,7 +39,12 @@ class ChipperConfig
     
     public function getNetworkApiBaseUrl()
     {
-        return $this->networkBaseUrl;
+        $lastCharacter = substr(trim($this->networkBaseUrl), -1) ; 
+
+        if ('/' != $lastCharacter) {
+            return $this->networkBaseUrl . '/';
+        }
+        return $this->networkBaseUrl ;
     }
 
 

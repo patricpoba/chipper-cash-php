@@ -1,4 +1,5 @@
 <?php
+namespace PatricPoba\ChipperCash\API;
 
 use Exception;
 use PatricPoba\ChipperCash\ChipperCash;
@@ -31,9 +32,9 @@ trait ChipperRequestParametersTrait
      * @throws Exception
      * @return static
      */
-    public function recipient(string $identifierType, $identifier )
+    public function user(string $identifierType, $identifier )
     {
-        $identifierType = strtolower($identifier);
+        $identifierType = strtolower($identifierType);
 
         if (! in_array($identifierType, ['tag', 'id'])) {
             throw new Exception("recipientIdentifier must be tag or id, {$identifier} given");
@@ -43,6 +44,24 @@ trait ChipperRequestParametersTrait
         $this->recipientIdentifier = $identifier;
 
         return $this;
+    }
+
+    /** 
+     * @param string $identifier
+     * @return static
+     */
+    public function userTag(string $tag)
+    {
+        return $this->user('tag', $tag);
+    }
+
+    /** 
+     * @param string $identifier
+     * @return static
+     */
+    public function userId(string $identifier)
+    {
+        return $this->user('id', $identifier);
     }
 
     /**
@@ -88,8 +107,8 @@ trait ChipperRequestParametersTrait
     /**
      * Short description of transaction
      *
-     * @param [type] $note
-     * @return void
+     * @param string $note
+     * @return static
      */
     public function note($note)
     {
@@ -103,10 +122,10 @@ trait ChipperRequestParametersTrait
      *
      * @param array $param 
      */
-    public function validateRequestParams(array $param = [])
+    public function validateRequestParams(array $params = [])
     {
         $missingParams = [];
-        $requiredParams = empty($param) ? $this->requiredParams : $param;
+        $requiredParams = empty($params) ? $this->requiredParams : $params;
         
         foreach ($requiredParams as $key ) {
             if ($this->{$key} == null) {
