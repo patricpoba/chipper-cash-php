@@ -31,7 +31,7 @@ class ApiResponse
          * eg $response->category, $response->user_id for ['category'=> 'Electronics','user_id'=> 4]
          * $this->content must be set before calling $this->massAssignAttributes()
          */
-        // $this->massAssignAttributes($this->toArray());
+        $this->massAssignAttributes($this->toArray());
     }
 
     /**
