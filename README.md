@@ -11,10 +11,12 @@ This package helps you integrate the [ChipperCash Network API](https://www.notio
 
 # Installation 
 
-You are required to have PHP 7.0 or later. You can install the package via composer:
+You are required to have PHP 7.0 or later. You can install the package via composer
+NOTE: You may get an error if you are using composer version 1. Please upgrade your 
+composer to version 2 using this command **`composer self-update --2`**  [read more here](https://blog.packagist.com/deprecating-composer-1-support/) 
 
 ```bash
-composer require patricpoba/chipper-cash-php
+composer require patricpoba/chipper-cash-php ^1.0
 ```
 
 # API Credentials
