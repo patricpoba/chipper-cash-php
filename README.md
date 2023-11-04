@@ -1,4 +1,4 @@
-# ChipperCash Network API 
+# ChipperCash Network API  [Abandoned - Do not use]
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/patricpoba/chipper-cash-php.svg?style=flat-square)](https://packagist.org/packages/patricpoba/chipper-cash-php)
 [![GitHub license](https://img.shields.io/github/license/patricpoba/chipper-cash-php?style=flat-square)](https://github.com/patricpoba/chipper-cash-php/blob/master/LICENSE.md)
